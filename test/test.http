@@ -1,0 +1,23 @@
+
+
+#### Examples api call
+GET http://localhost:3000/api/v1/examples/ HTTP/1.1
+
+
+#### PBX ESL call reloadxml
+GET http://localhost:3000/api/v1/pbx/cli/reloadxml HTTP/1.1
+
+#### PBX ESL call sofia status
+GET http://localhost:3000/api/v1/pbx/cli/sofiastatus HTTP/1.1
+
+### PBX ESL call click2call extension
+### req : fs_cli -x 'originate {origination_caller_id_number=101}user/101@42.116.254.248 &bridge({origination_caller_id_number=100}user/100@42.116.254.248)'          
+### res : +OK 0fa6e37e-d382-485c-a304-8a0de8d61548
+POST http://localhost:3000/api/v1/pbx/call/extension HTTP/1.1
+Content-Type: application/json
+
+{
+    "from": "101",
+    "to": "100",
+    "domain": "42.116.254.248" 
+}

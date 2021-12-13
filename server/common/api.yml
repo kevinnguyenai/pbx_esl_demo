@@ -1,0 +1,219 @@
+openapi: 3.0.1
+info:
+  title: pbx-esl-demo
+  description: test nodejs esl for freeswitch
+  version: 1.0.0
+servers:
+  - url: /api/v1
+tags:
+  - name: Cli
+    description: Pbx cli endpoints
+  - name: Examples
+    description: Simple example endpoints
+  - name: Specification
+    description: The swagger API specification
+paths:
+  /pbx/cli/reloadxml:
+    get:
+      tags:
+        - Cli
+      description: reloadxml cli
+      responses:
+        2XX:
+          description: execute reloadxml successful
+          content:
+            application/json:
+              schema:
+                type: string
+                $ref: '#/components/schemas/CliReloadXml'
+        4XX:
+          description: execute reloadxml fail not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: execute reloadxml error by remote service
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /pbx/cli/sofiastatus:
+    get:
+      tags:
+        - Cli
+      description: sofia status cli
+      responses:
+        2XX:
+          description: execute sofia status successful
+          content:
+            application/json:
+              schema:
+                type: string
+                $ref: '#/components/schemas/CliSofiaStatus'
+        4XX:
+          description: execute reloadxml fail not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: execute reloadxml error by remote service
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /pbx/call/extension:
+    post:
+      tags:
+        - Call
+      description: click2call between two extension
+      responses:
+        2XX:
+          description: execute click2call between two extension
+          content:
+            application/json:
+              schema:
+                type: string
+                $ref: '#/components/schemas/CallExtension'
+        4XX:
+          description: execute click2call fail not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: execute click2call error by remote service
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /examples:
+    get:
+      tags:
+        - Examples
+      description: Fetch all examples
+      responses:
+        200:
+          description: Return the example with the specified id
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Example'
+        4XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - Examples
+      description: Create a new example
+      requestBody:
+        description: an example
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExampleBody'
+        required: true
+      responses:
+        201:
+          description: Return the example with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Example'
+        4XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /examples/{id}:
+    get:
+      tags:
+        - Examples
+      parameters:
+        - name: id
+          in: path
+          description: The id of the example to retrieve
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Return the example with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Example'
+        4XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /spec:
+    get:
+      tags:
+        - Specification
+      responses:
+        200:
+          description: Return the API specification
+          content: {}
+components:
+  schemas:
+    Example:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 3
+        name:
+          type: string
+          example: example 3
+    Error:
+      type: object
+      additionalProperties: true
+
+    ExampleBody:
+      title: example
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: no_stress
+    
+    CliReloadXml:
+      type: object
+      additionalProperties: true
+    CliSofiaStatus:
+      type: object
+      additionalProperties: true
+    CallExtension:
+      type: object
+      additionalProperties: true
+      
