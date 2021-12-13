@@ -1,6 +1,8 @@
 # pbx-esl-demo
 
-test nodejs esl for freeswitch
+test nodejs esl for freeswitch , app demo an nodejs application using `modesl`
+to communicate with mod_event_socket of freeswitch to execute command and define
+an api to do click2call quickly and simple to handle
 
 ## Get Started
 
